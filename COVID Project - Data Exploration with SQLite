@@ -1,0 +1,31 @@
+
+/*
+Covid 19 Data Exploration 
+Skills used: Joins, Common Table Expressions, Temporary Tables,Aggregate Functions, Creating Views, Converting Data Types
+*/
+
+
+-- AN OVERVIEW OF COVID 19 DATASET
+
+Select *
+From 'owid-covid-data'
+Where continent is not null 
+order by 3,4
+
+
+-- Select Data that we are going to be starting with
+
+Select Location, date, total_cases, new_cases, total_deaths, population
+From 'owid-covid-data'
+Where continent is not null 
+order by 1,2
+
+
+-- Total Cases vs Total Deaths in Vietnam
+
+Select Location, date, total_cases,total_deaths, (total_deaths/total_cases)*100 as PercentageOfDeath
+From 'owid-covid-data'
+Where location like '%viet%'
+and continent is not null 
+order by 1,2
+
