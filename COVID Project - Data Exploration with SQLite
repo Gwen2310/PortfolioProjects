@@ -144,9 +144,9 @@ From VaxOverPop
 
 -- Temp TABLE
 
-drop table if EXISTS PercentVaxTable
+drop table if EXISTS #PercentVaxTable
 
-CREATE table PercentVaxTable
+CREATE table #PercentVaxTable
 (
 continent nvarchar (255),
 location nvarchar(255),
@@ -156,7 +156,7 @@ new_vax NUMERIC,
 AccumulatedPeopleVax NUMERIC
 )
 
-INSERT INTO PercentVaxTable
+INSERT INTO #PercentVaxTable
 
 SELECT dea.continent, dea.location,  dea.date, dea.population, vax.new_vaccinations,
 sum(vax.new_vaccinations) over (PARTITION by dea.location order by dea.location,  dea.date)  as AccumulatedPeopleVax
@@ -169,7 +169,7 @@ and dea.location is 'Canada'
 -- order by 2,3 
 
 Select *, (AccumulatedPeopleVax/Population)*100 as  AccPercentVax
-From PercentVaxTable
+From #PercentVaxTable
 
 -- Creating View for visualizations
 
